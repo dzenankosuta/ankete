@@ -100,17 +100,6 @@ export default function NewSurvey() {
   };
 
   const updateErrorMessage = () => {
-    for (let i = 0; i < questions.length; i++) {
-      const question = questions[i];
-      if (
-        question.options.length === 0 ||
-        question.options.every((option) => option.trim() === "")
-      ) {
-        setErrorMessage("Molimo vas da popunite sve moguće odgovore.");
-        return;
-      }
-    }
-
     if (title.trim() === "") {
       setErrorMessage("Morate uneti naslov ankete.");
       return;
@@ -250,26 +239,6 @@ export default function NewSurvey() {
     if (emptyQuestionIndex !== -1) {
       return false;
     }
-
-    // Check if any answer is empty for each question
-    for (let i = 0; i < questions.length; i++) {
-      const question = questions[i];
-      const emptyAnswerIndex = question.options.findIndex(
-        (answer) => answer.trim() === ""
-      );
-      if (emptyAnswerIndex !== -1) {
-        return false;
-      }
-    }
-
-    // Check if any question has no answers
-    const noAnswerIndex = questions.findIndex(
-      (question) => question.options.length === 0
-    );
-    if (noAnswerIndex !== -1) {
-      return false;
-    }
-
     return true;
   };
   return (
@@ -344,12 +313,6 @@ export default function NewSurvey() {
                     </IconAnswerDelete>
                   </AnswerWrapper>
                 ))}
-                {question.title.trim() !== "" &&
-                question.options.some((answer) => answer.trim() === "") ? (
-                  <ErrorMessage>
-                    Molimo vas da popunite sve moguće odgovore.
-                  </ErrorMessage>
-                ) : null}
                 <AddOptionButton
                   onClick={(e) => handleAddAnswerOption(questionIndex, e)}
                   disabled={question.title.trim() === ""}
