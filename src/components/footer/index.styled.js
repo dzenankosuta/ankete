@@ -16,13 +16,6 @@ export const StyledFooter = styled.footer`
   }
 `;
 
-export const StyledLogo = styled.img`
-  height: 6vh;
-  @media screen and (max-width: 700px) {
-    height: 5vh;
-  }
-`;
-
 export const StyledText = styled.p`
   font-size: 1rem;
   font-style: italic;

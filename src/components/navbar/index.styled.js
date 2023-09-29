@@ -30,6 +30,7 @@ export const StyledLogo = styled.img`
   height: 70px;
   @media screen and (max-width: 700px) {
     height: 50px;
+    width: 90%;
   }
 `;
 

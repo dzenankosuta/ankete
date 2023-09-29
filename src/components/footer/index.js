@@ -1,18 +1,17 @@
 import React from "react";
-import { StyledFooter, StyledLogo, StyledText } from "./index.styled";
-import logo from "../../assets/oscelogo.png";
+import { StyledFooter, StyledText } from "./index.styled";
 
 export default function Footer() {
   return (
     <StyledFooter>
       <StyledText>
-        Izradu ove veb aplikacije podržala je Misija OEBS-a u Srbiji. Stavovi
-        izrečeni pripadaju isključivo autoru i njegovim saradnicima i ne
-        predstavljaju nužno zvaničan stav Misije OEBS-a u Srbiji. Svi pojmovi
-        koji su u analizi upotrebljeni u muškom gramatičkom rodu obuhvataju
-        muški i ženski rod lica na koja se odnose.
+        Ovo anketno ispitivanje se sprovodi u okviru aktivnosti „Digitalizacija
+        poljoprivrede u Novom Pazaru“ čiji je nosilac SEDA, uz podršku Projekta
+        „Velika mala privreda“, koji finansira USAID, a sprovodi ACDI/VOCA. Cilj
+        prikupljanja i digitalizacije podataka je dobijanje realnog uvida u
+        potencijale sektora poljoprivrede u regionu Novog Pazara i pokretanje
+        konkretnih inicijativa koje treba da pomognu njegov dalji razvoj.
       </StyledText>
-      <StyledLogo src={logo} alt="osce" />
     </StyledFooter>
   );
 }
