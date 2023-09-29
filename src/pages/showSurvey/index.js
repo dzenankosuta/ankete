@@ -61,7 +61,7 @@ export default function ShowSurvey() {
   };
 
   const { mutate: getSurveyInfo, isLoading: gettingSurveyInformations } =
-    useMutation(() => getSurvey(localStorage.getItem("token"), Number(id)), {
+    useMutation(() => getSurvey(localStorage.getItem("token"), id), {
       onSuccess: (res) => {
         setSurveyData(res);
         setAnswerData(res?.answers);
@@ -74,7 +74,7 @@ export default function ShowSurvey() {
     });
 
   const { mutate: downloadSurveyInfo } = useMutation(
-    () => excelSurvey(localStorage.getItem("token"), Number(id)),
+    () => excelSurvey(localStorage.getItem("token"), id),
     {
       onSuccess: (res) => {
         // console.log(res);
@@ -150,16 +150,27 @@ export default function ShowSurvey() {
               },
             };
             const labels = question?.options.map((label) => label);
+            labels.push("Ostalo");
             const data = {
               labels,
               datasets: [
                 {
                   label: "Odgovora",
                   data: labels.map((option) => {
-                    const answer = answerData.find(
-                      (ans) => ans?.title === question?.title
-                    );
-                    return answer?.options[`${option}`]?.count;
+                    if (question?.options.includes(option)) {
+                      const answer = answerData.find(
+                        (ans) => ans?.title === question?.title
+                      );
+                      return answer?.options[`${option}`]?.count;
+                    } else {
+                      let answers = [];
+                      for (let x of Object.keys(answerData[0].options)) {
+                        if (!question?.options.includes(x)) {
+                          answers.push(x);
+                        }
+                      }
+                      return answers.length;
+                    }
                   }),
                   backgroundColor: "rgba(51, 154, 240, 0.5)",
                 },

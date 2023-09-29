@@ -34,11 +34,10 @@ export default function SubmitSurvey() {
   const [showErrorNotification, setShowErrorNotification] = useState(false);
 
   const { mutate: getSurveyInfo, isLoading: gettingSurveyInformations } =
-    useMutation(() => getPrivateSurvey(Number(id)), {
+    useMutation(() => getPrivateSurvey(id), {
       onSuccess: (res) => {
         setMessage("");
         setSurveyData(res);
-        console.log(res);
         setAnswers(
           res?.question?.map((question) => {
             const key = question?.title;
@@ -53,7 +52,7 @@ export default function SubmitSurvey() {
     });
 
   const { mutate: submitSurvey, isLoading: submitingSurvey } = useMutation(
-    (values) => createAnswer(values, Number(id)),
+    (values) => createAnswer(values, id),
     {
       onSuccess: (res) => {
         setAnswers([]);
@@ -79,7 +78,6 @@ export default function SubmitSurvey() {
     getSurveyInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showSuccessNotification]);
-  console.log(answers);
   return (
     <Container>
       {gettingSurveyInformations && <Spinner message="Učitavanje ankete..." />}
