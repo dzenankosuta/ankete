@@ -150,7 +150,9 @@ export default function ShowSurvey() {
               },
             };
             const labels = question?.options.map((label) => label);
-            labels.push("Ostalo");
+            if (question.optional) {
+              labels.push("Ostalo");
+            }
             const data = {
               labels,
               datasets: [
@@ -164,7 +166,10 @@ export default function ShowSurvey() {
                       return answer?.options[`${option}`]?.count;
                     } else {
                       let answers = [];
-                      for (let x of Object.keys(answerData[0].options)) {
+                      const correctQuestion = answerData.find(
+                        (answer) => answer.title === question.title
+                      );
+                      for (let x of Object.keys(correctQuestion.options)) {
                         if (!question?.options.includes(x)) {
                           answers.push(x);
                         }
