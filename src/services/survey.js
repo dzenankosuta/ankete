@@ -9,7 +9,7 @@ export const getSurveys = async () => {
         Accept: "application/json",
       },
     });
-    return response.data;
+    return JSON.parse(response.data);
   } catch (error) {
     // console.log(error);
   }
@@ -44,21 +44,25 @@ export const getPrivateSurvey = async (id) => {
   }
 };
 
-export const createSurvey = async (token, data) => {
-  const url = `${restApiUrl.prod}/survey/`;
-  try {
-    const response = await axios.post(url, data, {
-      headers: {
-        "Content-Type": " application/json",
-        Authorization: `Bearer ${token}`,
-        // "Access-Control-Allow-Origin": true,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    // throw new Error(error.message);
-  }
-};
+export const createSurvey = (token, data) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const url = `${restApiUrl.prod}/survey/`;
+      const config = {
+        headers: {
+          "Content-Type": " application/json",
+          Authorization: `Bearer ${token}`,
+          // "Access-Control-Allow-Origin": true,
+        },
+      };
+      const survey = await axios.post(url, data, config);
+      resolve(survey);
+    } catch (error) {
+      reject(error);
+      // console.log(error);
+      throw new Error(error.data);
+    }
+  });
 
 export const excelSurvey = async (token, id) => {
   const url = `${restApiUrl.prod}/survey/excel/${id}`;
