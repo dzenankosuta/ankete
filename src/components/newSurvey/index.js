@@ -59,10 +59,8 @@ export default function NewSurvey() {
         setNewSurveyData({ title: "", questions: [] });
         setShowErrorNotification(false);
         setShowSuccessNotification(true);
-        console.log("uspjesno");
       },
       onError: () => {
-        console.log("error");
         setId(0);
         setShowErrorNotification(true);
         setShowSuccessNotification(false);
